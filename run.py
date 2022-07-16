@@ -12,8 +12,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('portfolio_tracker')
 
-btc_price = SHEET.worksheet("price").get_all_values()
-#print(test)
+btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
+
 
 def sum_sheet(sheet, range):
     """
@@ -46,11 +46,24 @@ def dashboard():
     """
     Function that shows dashboard with current value of portfolio, profit/loss and a menu
     """
-    SHEET.worksheet("trades").cell
+    
+    btc_value = round(sum_sheet('trades', 'c2:c') * btc_price, 2)
+    # Average buy price
+    avg_buy_price = sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))
+    # The average buy price value of all btc
+    avg_buy_price_value = (sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))) * sum_sheet("trades", "C2:C")
+    
+    percent_profit_or_loss = (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
+    # Gives a negative value if the average buy pricee is more than current btc_value
+    ternary_plus_minus_percent = round(percent_profit_or_loss, 2) if avg_buy_price_value < btc_value else round(percent_profit_or_loss * -1, 2)
+    
+    
 
-    print(f"Your BTC balance is: {sum_sheet('trades', 'C2:C')}")
-    print("Currrent USD value is: ")
-    print("Average pofit and loss: ")
+
+    print(f"Your BTC balance is: {sum_sheet('trades', 'C2:C')} BTC")
+    print(f"Currrent BTC value in USD$ is: {btc_value} $")
+    print(f"Your BTC value based on average buy price is {avg_buy_price_value} $")
+    print(f"Average pofit and loss is: {ternary_plus_minus_percent} %")
     print("""================================
     Available menue commands: 
     'Trades' = Takes you to a list of your trades 
