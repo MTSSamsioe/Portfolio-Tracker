@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -72,4 +73,16 @@ def dashboard():
     menu_choice = input(str("type menue command here: "))
     
 
-print(dashboard())
+#print(dashboard())
+
+def add_trade_date():
+
+    print("Hi what date did you buy your bitcoin? (The format has to be DD-MM-2022) ")
+    date_input = input("Enter your date here: ")
+    try:
+        datetime.datetime.strptime(date_input, '%d-%m-%y')
+        print(f"The date you entered is {date_input} ")
+    except:
+        print(ValueError("Your date has the wrong format"))
+
+add_trade_date()
