@@ -13,7 +13,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('portfolio_tracker')
 
-btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
 
 
 def sum_sheet(sheet, range):
@@ -25,6 +24,23 @@ def sum_sheet(sheet, range):
         
         sum_tot += float(i[0])
     return sum_tot
+
+def validate_char(input_data):
+    """
+    Function that compares input_data with list of allowed characters
+    """
+    allowed_char = ["1","2","3","4","5","6","7","8","9","0",".","-"]
+    forbidden_char = []
+    for char in input_data:
+        if char not in allowed_char:
+            forbidden_char.append(char)
+    print(forbidden_char)        
+validate_char("abc124-")
+
+
+# global variables
+btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
+btc_amount = sum_sheet('trades', 'c2:c')
 
 
 def start():
@@ -48,11 +64,11 @@ def dashboard():
     Function that shows dashboard with current value of portfolio, profit/loss and a menu
     """
     
-    btc_value = round(sum_sheet('trades', 'c2:c') * btc_price, 2)
+    btc_value = round(btc_amount * btc_price, 2)
     # Average buy price
     avg_buy_price = sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))
     # The average buy price value of all btc
-    avg_buy_price_value = (sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))) * sum_sheet("trades", "C2:C")
+    avg_buy_price_value = (sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))) * btc_amount
     
     percent_profit_or_loss = (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
     # Gives a negative value if the average buy pricee is more than current btc_value
@@ -61,7 +77,7 @@ def dashboard():
     
 
 
-    print(f"Your BTC balance is: {sum_sheet('trades', 'C2:C')} BTC")
+    print(f"Your BTC balance is: {btc_amount} BTC")
     print(f"Currrent BTC value in USD$ is: {btc_value} $")
     print(f"Your BTC value based on average buy price is {avg_buy_price_value} $")
     print(f"Average pofit and loss is: {ternary_plus_minus_percent} %")
@@ -94,4 +110,4 @@ def add_trade():
     # BTC AMOUNT INPUT
        
     print(trade)
-add_trade()
+#add_trade()
