@@ -15,6 +15,17 @@ SHEET = GSPREAD_CLIENT.open('portfolio_tracker')
 btc_price = SHEET.worksheet("price").get_all_values()
 #print(test)
 
+def sum_sheet(sheet, range):
+    """
+    Function that helps sum up cell range in a google sheet
+    """
+    sum_tot = 0
+    for i in SHEET.worksheet(sheet).get_values(range):
+        
+        sum_tot += float(i[0])
+    return sum_tot
+
+
 def start():
     """
     Function checks if the portfolio has a name. If not you can add one that is then added to the google sheet
@@ -35,7 +46,9 @@ def dashboard():
     """
     Function that shows dashboard with current value of portfolio, profit/loss and a menu
     """
-    print("Your BTC balance is: ")
+    SHEET.worksheet("trades").cell
+
+    print(f"Your BTC balance is: {sum_sheet('trades', 'C2:C')}")
     print("Currrent USD value is: ")
     print("Average pofit and loss: ")
     print("""================================
@@ -46,4 +59,4 @@ def dashboard():
     menu_choice = input(str("type menue command here: "))
     
 
-dashboard()
+print(dashboard())
