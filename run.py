@@ -110,7 +110,8 @@ def add_date():
             print(ValueError("The format should be DD-MM-YY"))
             print("Please try again")   
     return date
-print(add_date())
+
+#print(add_date())
 
 def add_amount():
     amount_list = []
@@ -158,19 +159,18 @@ def add_price():
         check_char = validate_char(price_input, allowed_char)
         
         if check_char == [] and len(price_input) > 0:
-            
-            print(float(price_input))
-            print("Input approved...")
-                
+            #print(float(price_input))
+            print("Input approved...")    
             price_list.append(price_input)
+            #print(price_list)
             break     
 
         else:
             print(ValueError(f"Input empty or Forbidden characters {check_char} were used please try again"))
             
-    print(price_list)
+    return price_list
 
-#add_price()
+#print(add_price())
 
 def update_sheet():
     list = []
@@ -179,4 +179,4 @@ def update_sheet():
     list.append(add_price())
 
     print(list)
-#update_sheet()
+update_sheet()
