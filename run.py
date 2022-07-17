@@ -32,10 +32,14 @@ def validate_char(input_data):
     allowed_char = ["1","2","3","4","5","6","7","8","9","0",".","-"]
     forbidden_char = []
     for char in input_data:
-        if char not in allowed_char:
+        if char not in allowed_char :
             forbidden_char.append(char)
-    print(forbidden_char)        
-validate_char("abc124-")
+    return forbidden_char  
+
+
+
+
+
 
 
 # global variables
@@ -91,7 +95,7 @@ def dashboard():
 
 #print(dashboard())
 
-def add_trade():
+def add_date():
     trade = []
     print("Hi what date did you buy your bitcoin? (The format has to be DD-MM-2022) ")
     
@@ -110,4 +114,42 @@ def add_trade():
     # BTC AMOUNT INPUT
        
     print(trade)
-#add_trade()
+
+
+def add_amount():
+    amount_test = []
+    print("What amount of BTC did you purchase and sell?")
+    print("Enter a (-)negative amount if you sold BTC")
+    print("Alloweed input characters are ('0 - 9', '-', '.')")
+    
+    
+    while True:
+        amount_input = input("Enter amount here : ")
+        negative_value = float(amount_input) < 0
+        check_char = validate_char(amount_input)
+        print(check_char)
+        if check_char == [] and len(amount_input) > 0:
+            print("Chars ok and input not empty")
+            
+            if (float(amount_input) < 0 and (btc_amount + float(amount_input)) > 0) or (float(amount_input) > 0 and (btc_amount + float(amount_input)) > 0):
+                print(btc_amount + float(amount_input))
+                print("Amount ok")
+                
+            else:
+                print(btc_amount + float(amount_input))
+                print(ValueError("Btc amount sold can not be greater than portfolio balance"))
+                return False
+
+        else:
+            print(ValueError(" Input empty or Forbidden characters used please try again"))
+            return False
+
+        return False 
+        
+            
+            
+         
+    
+
+add_amount()
+
