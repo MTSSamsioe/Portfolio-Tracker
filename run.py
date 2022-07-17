@@ -29,10 +29,9 @@ def validate_char(input_data, allowed_char):
     """
     Function that compares input_data with list of allowed characters
     """
-    
     forbidden_char = []
     for char in input_data:
-        if char not in allowed_char :
+        if char not in allowed_char:
             forbidden_char.append(char)
     return forbidden_char  
 
@@ -96,7 +95,7 @@ def dashboard():
 #print(dashboard())
 
 def add_date():
-    trade = []
+    date = []
     print("Hi what date did you buy your bitcoin? (The format has to be DD-MM-2022) ")
     
     while True:
@@ -104,16 +103,13 @@ def add_date():
             date_input = input("Enter your date here: ")
             datetime.datetime.strptime(date_input, '%d-%m-%Y')
             print(f"The date you entered is {date_input} ")
-            trade.append(date_input)
+            date.append(date_input)
             return False
         except:
             print(ValueError("Your date has the wrong format"))
             print(ValueError("The format should be DD-MM-YY"))
-            print("Please try again")
-    
-    # BTC AMOUNT INPUT
-       
-    print(trade)
+            print("Please try again")   
+    return date
 
 
 def add_amount():
@@ -148,11 +144,5 @@ def add_amount():
             
     return amount_list
         
-        
-            
-            
-         
-    
-
-add_amount()
+#add_amount()
 
