@@ -146,7 +146,7 @@ def add_amount():
             
     return amount_list
         
-print(add_amount())
+#print(add_amount())
 
 def add_price():
     price_list = []
@@ -175,9 +175,11 @@ def add_price():
 
 def update_sheet():
     list = []
+    length = len(SHEET.worksheet("trades").get_values("A2:A"))
+    list.append(length + 1)
     list.append(add_date())
     list.append(add_amount())
     list.append(add_price())
-
+    print(length)
     print(list)
-#update_sheet()
+update_sheet()
