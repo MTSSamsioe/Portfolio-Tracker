@@ -144,7 +144,7 @@ def add_amount():
         else:
             print(ValueError(f" Input empty or Forbidden characters {check_char} were used please try again"))
             
-    return amount_list
+    return amount_list 
         
 #print(add_amount())
 
@@ -162,7 +162,7 @@ def add_price():
         if check_char == [] and len(price_input) > 0:
             #print(float(price_input))
             print("Input approved...")    
-            price_list.append(price_input)
+            price_list.append(float(price_input))
             #print(price_list)
             break     
 
@@ -177,9 +177,15 @@ def update_sheet():
     list = []
     length = len(SHEET.worksheet("trades").get_values("A2:A"))
     list.append(length + 1)
-    list.append(add_date())
-    list.append(add_amount())
-    list.append(add_price())
+    list.append(add_date()[0])
+    two_values_list = add_amount()
+    type, amount = two_values_list
+    list.append(type)
+    list.append(amount) 
+    list.append(add_price()[0])
     print(length)
     print(list)
+    SHEET.worksheet("trades").append_row(list)
+
+
 update_sheet()
