@@ -103,14 +103,14 @@ def add_date():
             date_input = input("Enter your date here: ")
             datetime.datetime.strptime(date_input, '%d-%m-%Y')
             print(f"The date you entered is {date_input} ")
-            date.append(date_input)
-            return False
+            date.append(str(date_input))
+            break
         except:
             print(ValueError("Your date has the wrong format"))
             print(ValueError("The format should be DD-MM-YY"))
             print("Please try again")   
     return date
-
+print(add_date())
 
 def add_amount():
     amount_list = []
@@ -132,7 +132,7 @@ def add_amount():
                 
                 print("Input approved...")
                 print(f"New BTC balance is : {(float(amount_input) + btc_amount)}.BTC")
-                amount_list.append(amount_input)
+                amount_list.append(float(amount_input))
                 break
             else:
                 #print(btc_amount + float(amount_input))
@@ -166,8 +166,17 @@ def add_price():
             break     
 
         else:
-            print(ValueError(f"Input empty or Forbidden characters {str(check_char)} were used please try again"))
+            print(ValueError(f"Input empty or Forbidden characters {check_char} were used please try again"))
             
     print(price_list)
 
-add_price()
+#add_price()
+
+def update_sheet():
+    list = []
+    list.append(add_date())
+    list.append(add_amount())
+    list.append(add_price())
+
+    print(list)
+#update_sheet()
