@@ -144,5 +144,30 @@ def add_amount():
             
     return amount_list
         
-#add_amount()
+#print(add_amount())
 
+def add_price():
+    price_list = []
+    allowed_char = ["1","2","3","4","5","6","7","8","9","0","."]
+    print("At what price did you sell or buy your BTC")
+    print("Alloweed input characters are ('0 - 9', '.')")
+    
+    while True:
+        price_input = input("Enter price here : ")
+        
+        check_char = validate_char(price_input, allowed_char)
+        
+        if check_char == [] and len(price_input) > 0:
+            
+            print(float(price_input))
+            print("Input approved...")
+                
+            price_list.append(price_input)
+            break     
+
+        else:
+            print(ValueError(f"Input empty or Forbidden characters {str(check_char)} were used please try again"))
+            
+    print(price_list)
+
+add_price()
