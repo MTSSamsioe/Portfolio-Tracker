@@ -117,7 +117,7 @@ def add_date():
 
 
 def add_amount():
-    amount_test = []
+    amount_list = []
     allowed_char = ["1","2","3","4","5","6","7","8","9","0",".","-"]
     print("What amount of BTC did you purchase and sell?")
     print("Enter a (-)negative amount if you sold BTC")
@@ -128,24 +128,26 @@ def add_amount():
         amount_input = input("Enter amount here : ")
         
         check_char = validate_char(amount_input, allowed_char)
-        print(check_char)
+        
         if check_char == [] and len(amount_input) > 0:
-            print("Chars ok and input not empty")
+            
             
             if (float(amount_input) < 0 and (btc_amount + float(amount_input)) > 0) or (float(amount_input) > 0 and (btc_amount + float(amount_input)) > 0):
-                print(btc_amount + float(amount_input))
-                print("Amount ok")
                 
+                print("Input approved...")
+                print(f"New BTC balance is : {(float(amount_input) + btc_amount)}.BTC")
+                amount_list.append(amount_input)
+                break
             else:
-                print(btc_amount + float(amount_input))
-                print(ValueError("Btc amount sold can not be greater than portfolio balance"))
-                return False
+                #print(btc_amount + float(amount_input))
+                print(ValueError(f"Btc sold sold ({amount_input}.BTC) can not be greater than portfolio balance ({btc_amount}.BTC) please try again"))
+                
 
         else:
-            print(ValueError(" Input empty or Forbidden characters used please try again"))
-            return False
-
-        return False 
+            print(ValueError(f" Input empty or Forbidden characters {check_char} were used please try again"))
+            
+    return amount_list
+        
         
             
             
