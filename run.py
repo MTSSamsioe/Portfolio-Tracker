@@ -43,7 +43,7 @@ def validate_char(input_data, allowed_char):
 
 # global variables
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
-btc_amount = sum_sheet('trades', 'c2:c')
+btc_amount = sum_sheet('trades', 'D2:D')
 
 
 def start():
@@ -69,9 +69,9 @@ def dashboard():
     
     btc_value = round(btc_amount * btc_price, 2)
     # Average buy price
-    avg_buy_price = sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))
+    avg_buy_price = sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))
     # The average buy price value of all btc
-    avg_buy_price_value = (sum_sheet("trades", "D2:D") / len(SHEET.worksheet("trades").get_values("D2:D"))) * btc_amount
+    avg_buy_price_value = (sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))) * btc_amount
     
     percent_profit_or_loss = (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
     # Gives a negative value if the average buy pricee is more than current btc_value
@@ -131,6 +131,7 @@ def add_amount():
             
             if (float(amount_input) < 0 and (btc_amount + float(amount_input)) > 0) or (float(amount_input) > 0 and (btc_amount + float(amount_input)) > 0):
                 
+                amount_list.append(str("Bought")) if float(amount_input) > 0 else amount_list.append(str("Sold"))
                 print("Input approved...")
                 print(f"New BTC balance is : {(float(amount_input) + btc_amount)}.BTC")
                 amount_list.append(float(amount_input))
@@ -145,7 +146,7 @@ def add_amount():
             
     return amount_list
         
-#print(add_amount())
+print(add_amount())
 
 def add_price():
     price_list = []
@@ -179,4 +180,4 @@ def update_sheet():
     list.append(add_price())
 
     print(list)
-update_sheet()
+#update_sheet()
