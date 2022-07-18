@@ -40,11 +40,15 @@ def validate_char(input_data, allowed_char):
 def nav():
 
     while True:
-        print("To navigate an other section type on of the following commands:")
-        print("""\n'dash' = Go to dashboard 
-        \n'add' = Go to add trade section
-        \n'trade' = Go to trade list section""")
+        print("\n================================================")
+        print("\nTo navigate an other section type one of the following commands:")
+        print("\n================================================")
+        print("""\n'dash' --> Go to dashboard 
+        \n'add' --> Go to add trade section
+        \n'trade' --> Go to trade list section""")
+        print("\n================================================")
         nav_input = input("Write navigation command here : ")
+        print("\n================================================")
         if nav_input == "dash":
             dashboard()
             break
@@ -55,14 +59,9 @@ def nav():
             trades_list()
             break
         else:
-            print("Invalid command please try again")
-        
-
-
-
-
-
-
+            print("\n================================================")
+            print("\nInvalid command please try again")
+            print("\n================================================")
 
 # global variables
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
