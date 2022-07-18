@@ -37,6 +37,28 @@ def validate_char(input_data, allowed_char):
     return forbidden_char  
 
 
+def nav():
+
+    while True:
+        print("To navigate an other section type on of the following commands:")
+        print("""\n'dash' = Go to dashboard 
+        \n'add' = Go to add trade section
+        \n'trade' = Go to trade list section""")
+        nav_input = input("Write navigation command here : ")
+        if nav_input == "dash":
+            dashboard()
+            break
+        elif nav_input == "add":
+            update_sheet()
+            break
+        elif nav_input == "trade":
+            trades_list()
+            break
+        else:
+            print("Invalid command please try again")
+        
+
+
 
 
 
@@ -213,3 +235,4 @@ def trades_list():
         print(tradei)
         
 
+nav()
