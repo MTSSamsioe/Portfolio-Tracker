@@ -43,13 +43,15 @@ def nav():
     Function that provides navigation between diffrent sections in the program
     """
     while True:
-        print("\n*******************************************************************")
+        print("\n" + "*"*30 + "SCROLL UPP TO SEE THE LAST VISITED SECTION" + "*"*30)
+        print("\n" + "*"*60)
         print("\nTo navigate an other section type one of the following commands:")
-        print("\n*******************************************************************")
+        print("\n" + "*"*60)
         print(
             """\n'dash' --> Go to dashboard 
         \n'add' --> Go to add trade section
-        \n'trade' --> Go to trade list section"""
+        \n'trade' --> Go to trade list section
+        \n'exit' --> Exit program"""
         )
         print("\n" + "="*50)
         nav_input = input("\nWrite navigation command here : ")
@@ -63,7 +65,8 @@ def nav():
         elif nav_input == "trade":
             trades_list()
             break
-        # elif nav_input == "exit":
+        elif nav_input == "exit":
+            return False
 
         else:
             print("\n" + "="*50)
@@ -339,7 +342,6 @@ def trades_list():
     \n================================================"""
     )
     print("\nBelow is a list of all your trades")
-    print("\n" + "="*50)
     for i in range(len(values_data)):
         if len(values_data) > 0:
             tradei = Trade(
