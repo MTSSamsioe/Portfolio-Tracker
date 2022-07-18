@@ -231,7 +231,9 @@ def trades_list():
     values_data = SHEET.worksheet("trades").get_values("A2:E")
 
     for i in range(len(values_data)):
-        tradei = Trade(values_data[i][0], values_data[i][1], values_data[i][2], values_data[i][3], values_data[i][4] )
-        print(tradei)
-        
-
+        if len(values_data) > 0:
+            tradei = Trade(values_data[i][0], values_data[i][1], values_data[i][2], values_data[i][3], values_data[i][4] )
+            print(tradei)
+        else:
+            Print("There are no trades in the list")
+    
