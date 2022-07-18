@@ -169,30 +169,35 @@ start()
 
 def dashboard():
     """
-    Function that shows dashboard with current value of portfolio, profit/loss and a menu
+    Function that shows dashboard with current value of portfolio, profit/loss etc
     """
     
     btc_value = round(btc_amount * btc_price, 2)
     # Average buy price
-    avg_buy_price = sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))
+    avg_buy_price = round(sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E")), 2)
     # The average buy price value of all btc
-    avg_buy_price_value = (sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))) * btc_amount
-    
+    avg_buy_price_value = round((sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))) * btc_amount, 2)
+    # Percentage difference between average buy price value and current total BTC value 
     percent_profit_or_loss = (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
     # Gives a negative value if the average buy pricee is more than current btc_value
     ternary_plus_minus_percent = round(percent_profit_or_loss, 2) if avg_buy_price_value < btc_value else round(percent_profit_or_loss * -1, 2)
-    
-    
-
-
-    print(f"Your BTC balance is: {btc_amount} BTC")
-    print(f"Currrent BTC value in USD$ is: {btc_value} $")
-    print(f"Your BTC value based on average buy price is {avg_buy_price_value} $")
-    print(f"Average pofit and loss is: {ternary_plus_minus_percent} %")
-    print("""================================""")
+    print("""
+    \n================================================
+    \nBITCOIN PORTFOLIO TRACKER - DASHBOARD
+    \n================================================""")
+    print(f"\nYour BTC balance is: {btc_amount} BTC")
+    print("\n================================================")
+    print(f"\nCurrrent BTC value in USD$ is: {btc_value} $")
+    print("\n================================================")
+    print(f"\nYour average BTC buy price in USD is {avg_buy_price} $")
+    print("\n================================================")
+    print(f"\nYour BTC value based on average buy price is {avg_buy_price_value} $")
+    print("\n================================================")
+    print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
+    print("""
+    \n================================================""")
     nav()
     
-
 def update_sheet():
     list = []
     length = len(SHEET.worksheet("trades").get_values("A2:A"))
@@ -234,4 +239,5 @@ def trades_list():
         else:
             Print("There are no trades in the list")
     nav()
+
 nav()
