@@ -163,7 +163,7 @@ def start():
         portfolio_name = SHEET.worksheet("name").get_values()
         print(...)
         print(f"your portfolio {str(portfolio_name[0][0])} Is now loaded!")
-
+        nav()
 
 
 def dashboard():
@@ -188,12 +188,8 @@ def dashboard():
     print(f"Currrent BTC value in USD$ is: {btc_value} $")
     print(f"Your BTC value based on average buy price is {avg_buy_price_value} $")
     print(f"Average pofit and loss is: {ternary_plus_minus_percent} %")
-    print("""================================
-    Available menue commands: 
-    'Trades' = Takes you to a list of your trades 
-    'Add trade' = Add a purchase or sale of Btc
-    """)
-    menu_choice = input(str("type menue command here: "))
+    print("""================================""")
+    nav()
     
 
 def update_sheet():
@@ -209,7 +205,7 @@ def update_sheet():
     print(length)
     print(list)
     SHEET.worksheet("trades").append_row(list)
-
+    nav()
 
 #update_sheet()
 
@@ -236,4 +232,4 @@ def trades_list():
             print(tradei)
         else:
             Print("There are no trades in the list")
-    
+    nav()
