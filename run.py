@@ -154,15 +154,23 @@ def start():
     """
     Function checks if the portfolio has a name. If not you can add one that is then added to the google sheet
     """
-    print("Welcome to your bitcoin portfoliotracker")
+    print("""
+    \n================================================
+    \nWelcome to your bitcoin portfoliotracker
+    \n================================================""")
     if SHEET.worksheet("name").get_values() == []:
+        print("\n================================================")
         print("Please pick a name for your portfolio")
+        print("\n================================================")
         portfolio_name_input = [input("Please enter your portfolio name:")]
+        print("\n================================================")
         SHEET.worksheet("name").append_row(portfolio_name_input)
     else:
         portfolio_name = SHEET.worksheet("name").get_values()
-        print(...)
+        print("\n================================================")
+        print("\n...")
         print(f"your portfolio {str(portfolio_name[0][0])} Is now loaded!")
+        print("\n================================================")
         
 
 start()
@@ -194,8 +202,7 @@ def dashboard():
     print(f"\nYour BTC value based on average buy price is {avg_buy_price_value} $")
     print("\n================================================")
     print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
-    print("""
-    \n================================================""")
+    print("\n================================================")
     nav()
     
 def update_sheet():
