@@ -40,9 +40,9 @@ def validate_char(input_data, allowed_char):
 def nav():
 
     while True:
-        print("\n================================================")
+        print("\n===================================================================")
         print("\nTo navigate an other section type one of the following commands:")
-        print("\n================================================")
+        print("\n===================================================================")
         print("""\n'dash' --> Go to dashboard 
         \n'add' --> Go to add trade section
         \n'trade' --> Go to trade list section""")
@@ -155,7 +155,7 @@ def start():
     """
     print("""
     \n================================================
-    \nWelcome to your bitcoin portfoliotracker
+    \nWelcome to your Bitcoin portfolio tracker
     \n================================================""")
     if SHEET.worksheet("name").get_values() == []:
         print("\n================================================")
@@ -214,8 +214,8 @@ def update_sheet():
     list.append(type)
     list.append(amount) 
     list.append(add_price()[0])
-    print(length)
-    print(list)
+    #print(length)
+    #print(list)
     SHEET.worksheet("trades").append_row(list)
     nav()
 
@@ -223,7 +223,9 @@ def update_sheet():
 
 
 def trades_list():
-
+    """
+    Function that creates class instances of trades that has been made.
+    """
     class Trade:
         def __init__(self, number, date, type, amount, price):
             self.number = number
@@ -237,13 +239,21 @@ def trades_list():
 
     keys_headings = SHEET.worksheet("trades").get_values("A1:E1")
     values_data = SHEET.worksheet("trades").get_values("A2:E")
-
+    print("""
+    \n================================================
+    \n*** BITCOIN PORTFOLIO TRACKER - TRADES LIST ***
+    \n================================================""")
+    print("\nBelow is a list of all your trades")
+    print("\n================================================")
     for i in range(len(values_data)):
         if len(values_data) > 0:
             tradei = Trade(values_data[i][0], values_data[i][1], values_data[i][2], values_data[i][3], values_data[i][4] )
+            print("\n================================================")
             print(tradei)
         else:
-            Print("There are no trades in the list")
+            print("\n========================================================")
+            Print("There are no trades in the list please add trades first")
+            print("\n========================================================")
     nav()
 
 nav()
