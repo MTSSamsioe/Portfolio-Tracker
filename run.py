@@ -51,9 +51,9 @@ def nav():
         \n'add' --> Go to add trade section
         \n'trade' --> Go to trade list section"""
         )
-        print("\n================================================")
+        print("\n" + "="*50)
         nav_input = input("\nWrite navigation command here : ")
-        print("\n================================================")
+        print("\n" + "="*50)
         if nav_input == "dash":
             dashboard()
             break
@@ -66,9 +66,9 @@ def nav():
         # elif nav_input == "exit":
 
         else:
-            print("\n================================================")
+            print("\n" + "="*50)
             print("\nInvalid command please try again")
-            print("\n================================================")
+            print("\n" + "="*50)
 
 
 # global variables
@@ -86,21 +86,21 @@ def add_date():
 
     while True:
         try:
-            print("\n================================================")
+            print("\n" + "="*50)
             date_input = input("Enter your date here: ")
-            print("\n================================================")
+            print("\n" + "="*50)
             datetime.datetime.strptime(date_input, "%d-%m-%Y")
-            print("\n================================================")
-            print(f"Input approved the date you entered was {date_input} ")
-            print("\n================================================")
+            
+            print(f"\nInput approved the date you entered was {date_input} ")
+            
             date.append(str(date_input))
             break
         except:
-            print("\n================================================")
+            print("\n" + "="*50)
             print(ValueError("Your date has the wrong format"))
             print(ValueError("The date format should be DD-MM-YY"))
             print("Please try again")
-            print("\n================================================")
+            print("\n" + "="*50)
     return date
 
 
@@ -113,7 +113,7 @@ def add_amount():
     """
     amount_list = []
     allowed_char = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "-"]
-    print("\n================================================")
+    print("\n" + "="*50)
     print("\nWhat amount of BTC did you purchase or sell ?")
     print(
         """\n================================================")
@@ -124,9 +124,9 @@ def add_amount():
     )
 
     while True:
-        print("\n================================================")
+        print("\n" + "="*50)
         amount_input = input("Enter amount here : ")
-        print("\n================================================")
+        print("\n" + "="*50)
 
         check_char = validate_char(amount_input, allowed_char)
 
@@ -170,8 +170,8 @@ def add_price():
     """
     price_list = []
     allowed_char = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."]
-    print("\n================================================")
-    print("At what price did you sell or buy your BTC ?")
+    print("\n" + "="*50)
+    print("\nAt what price did you sell or buy your BTC ?")
     print(
         """\n================================================")
     \n- Please use a (.) as decimal separator")
@@ -181,24 +181,24 @@ def add_price():
 
     while True:
 
-        print("\n================================================")
-        price_input = input("Enter price here : ")
-        print("\n================================================")
+        print("\n" + "="*50)
+        price_input = input("\nEnter price here : ")
+        pprint("\n" + "="*50)
 
         check_char = validate_char(price_input, allowed_char)
 
         if check_char == [] and len(price_input) > 0:
-            # print(float(price_input))
-            print("\n============================================")
+            
+            print("\n" + "="*50)
             print("\nInput approved trade added to trades list")
             price_list.append(float(price_input))
-            # print(price_list)
+            
             break
 
         else:
             print(
                 ValueError(
-                    f"Input empty or Forbidden characters {check_char} were used please try again"
+                    f"\nInput empty or Forbidden characters {check_char} were used please try again"
                 )
             )
 
@@ -223,15 +223,15 @@ def start():
     if SHEET.worksheet("name").get_values() == []:
 
         print("Please pick a name for your portfolio")
-        print("\n================================================")
+        print("\n" + "="*50)
         portfolio_name_input = [input("Please enter your portfolio name:")]
-        print("\n================================================")
+        print("\n" + "="*50)
         SHEET.worksheet("name").append_row(portfolio_name_input)
     else:
         portfolio_name = SHEET.worksheet("name").get_values()
 
         print(f"\nYour portfolio {str(portfolio_name[0][0])} Is now loaded !")
-        print("\n================================================")
+        print("\n" + "="*50)
 
 
 start()
@@ -274,15 +274,15 @@ def dashboard():
     \n================================================"""
     )
     print(f"\nYour BTC balance is: {btc_amount} BTC")
-    print("\n================================================")
+    print("\n" + "="*50)
     print(f"\nCurrrent BTC value in USD$ is : {btc_value} $")
-    print("\n================================================")
+    print("\n" + "="*50)
     print(f"\nYour average BTC buy price in USD$ is : {avg_buy_price} $")
-    print("\n================================================")
+    print("\n" + "="*50)
     print(f"\nYour BTC value based on average buy price is : {avg_buy_price_value} $")
-    print("\n================================================")
+    print("\n" + "="*50)
     print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
-    print("\n================================================")
+    print("\n" + "="*50)
     nav()
 
 
@@ -296,8 +296,6 @@ def update_sheet():
     list.append(type)
     list.append(amount)
     list.append(add_price()[0])
-    # print(length)
-    # print(list)
     SHEET.worksheet("trades").append_row(list)
     nav()
 
@@ -341,7 +339,7 @@ def trades_list():
     \n================================================"""
     )
     print("\nBelow is a list of all your trades")
-    print("\n================================================")
+    print("\n" + "="*50)
     for i in range(len(values_data)):
         if len(values_data) > 0:
             tradei = Trade(
@@ -351,12 +349,12 @@ def trades_list():
                 values_data[i][3],
                 values_data[i][4],
             )
-            print("\n================================================")
+            print("\n" + "="*50)
             print(tradei)
         else:
-            print("\n========================================================")
+            print("\n" + "="*50)
             Print("There are no trades in the list please add trades first")
-            print("\n========================================================")
+            print("\n" + "="*50)
     nav()
 
 
