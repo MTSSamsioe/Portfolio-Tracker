@@ -163,8 +163,9 @@ def start():
         portfolio_name = SHEET.worksheet("name").get_values()
         print(...)
         print(f"your portfolio {str(portfolio_name[0][0])} Is now loaded!")
-        nav()
+        
 
+start()
 
 def dashboard():
     """
@@ -233,3 +234,4 @@ def trades_list():
         else:
             Print("There are no trades in the list")
     nav()
+nav()
