@@ -4,6 +4,7 @@ import datetime
 import black
 import bfg
 
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -310,7 +311,6 @@ def trades_list():
     """
     Function that creates class instances of trades that has been made.
     """
-
     class Trade:
         def __init__(self, number, date, type, amount, price):
             self.number = number
@@ -332,11 +332,10 @@ def trades_list():
                 + "\nBTC price: "
                 + self.price
             )
-
     keys_headings = SHEET.worksheet("trades").get_values("A1:E1")
     values_data = SHEET.worksheet("trades").get_values("A2:E")
     print(
-        """
+    """
     \n================================================
     \n*** BITCOIN PORTFOLIO TRACKER - TRADES LIST ***
     \n================================================"""
