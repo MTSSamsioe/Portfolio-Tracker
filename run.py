@@ -18,7 +18,7 @@ SHEET = GSPREAD_CLIENT.open('portfolio_tracker')
 
 def sum_sheet(sheet, range):
     """
-    Function that helps sum up cell range in a google sheet
+    Function that sums up cell range from a google sheet
     """
     sum_tot = 0
     for i in SHEET.worksheet(sheet).get_values(range):
@@ -28,7 +28,7 @@ def sum_sheet(sheet, range):
 
 def validate_char(input_data, allowed_char):
     """
-    Function that compares input_data with list of allowed characters
+    Function that compares input_data with list of allowed characters and returns a list of forbidden characters
     """
     forbidden_char = []
     for char in input_data:
@@ -38,16 +38,18 @@ def validate_char(input_data, allowed_char):
 
 
 def nav():
-
+    """
+    Function that provides navigation between diffrent sections in the program
+    """
     while True:
-        print("\n===================================================================")
+        print("\n*******************************************************************")
         print("\nTo navigate an other section type one of the following commands:")
-        print("\n===================================================================")
+        print("\n*******************************************************************")
         print("""\n'dash' --> Go to dashboard 
         \n'add' --> Go to add trade section
         \n'trade' --> Go to trade list section""")
         print("\n================================================")
-        nav_input = input("Write navigation command here : ")
+        nav_input = input("\nWrite navigation command here : ")
         print("\n================================================")
         if nav_input == "dash":
             dashboard()
@@ -69,34 +71,53 @@ btc_amount = sum_sheet('trades', 'D2:D')
 
 
 def add_date():
+    """
+    Function that takes input and verifies date format before sending data to a Google sheet
+    """
     date = []
-    print("Hi what date did you buy your bitcoin? (The format has to be DD-MM-2022) ")
+    print("\n======================================================================")
+    print("What date did you buy your bitcoin ? (The format has to be DD-MM-2022) ")
     
     while True:
         try:
+            print("\n================================================")
             date_input = input("Enter your date here: ")
+            print("\n================================================")
             datetime.datetime.strptime(date_input, '%d-%m-%Y')
-            print(f"The date you entered is {date_input} ")
+            print("\n================================================")
+            print(f"Input approved the date you entered was {date_input} ")
+            print("\n================================================")
             date.append(str(date_input))
             break
         except:
+            print("\n================================================")
             print(ValueError("Your date has the wrong format"))
-            print(ValueError("The format should be DD-MM-YY"))
+            print(ValueError("The date format should be DD-MM-YY"))
             print("Please try again")   
+            print("\n================================================")
     return date
 
 #print(add_date())
 
 def add_amount():
+    """
+    Function that verifies BTC amount data before sending it to Google sheet
+    """
     amount_list = []
     allowed_char = ["1","2","3","4","5","6","7","8","9","0",".","-"]
-    print("What amount of BTC did you purchase and sell?")
-    print("Enter a (-)negative amount if you sold BTC")
-    print("Alloweed input characters are ('0 - 9', '-', '.')")
+    print("\n================================================")
+    print("\nWhat amount of BTC did you purchase or sell ?")
+    print("""\n================================================")
+    - Enter a (-)negative amount if you sold BTC
+    - Please use a (.) as decimal separator")
+    - Alloweed input characters are ('0 - 9', '-', '.')")
+    """)
     
     
     while True:
+        print("\n================================================")
         amount_input = input("Enter amount here : ")
+        print("\n================================================")
         
         check_char = validate_char(amount_input, allowed_char)
         
@@ -123,19 +144,30 @@ def add_amount():
 #print(add_amount())
 
 def add_price():
+    """
+    Function that verifies price data before sending it to a Google Spread sheet
+    """
     price_list = []
     allowed_char = ["1","2","3","4","5","6","7","8","9","0","."]
-    print("At what price did you sell or buy your BTC")
-    print("Alloweed input characters are ('0 - 9', '.')")
+    print("\n================================================")
+    print("At what price did you sell or buy your BTC ?")
+    print("""\n================================================")
+    \n- Please use a (.) as decimal separator")
+    \n- Alloweed input characters are ('0 - 9', '.')")
+    """)
     
     while True:
+        
+        print("\n================================================")
         price_input = input("Enter price here : ")
+        print("\n================================================")
         
         check_char = validate_char(price_input, allowed_char)
         
         if check_char == [] and len(price_input) > 0:
             #print(float(price_input))
-            print("Input approved...")    
+            print("\n============================================")
+            print("\nInput approved trade added to trades list")    
             price_list.append(float(price_input))
             #print(price_list)
             break     
@@ -158,7 +190,7 @@ def start():
     \nWelcome to your Bitcoin portfolio tracker
     \n================================================""")
     if SHEET.worksheet("name").get_values() == []:
-        print("\n================================================")
+        
         print("Please pick a name for your portfolio")
         print("\n================================================")
         portfolio_name_input = [input("Please enter your portfolio name:")]
@@ -166,9 +198,8 @@ def start():
         SHEET.worksheet("name").append_row(portfolio_name_input)
     else:
         portfolio_name = SHEET.worksheet("name").get_values()
-        print("\n================================================")
-        print("\n...")
-        print(f"your portfolio {str(portfolio_name[0][0])} Is now loaded!")
+        
+        print(f"\nYour portfolio {str(portfolio_name[0][0])} Is now loaded !")
         print("\n================================================")
         
 
@@ -190,15 +221,15 @@ def dashboard():
     ternary_plus_minus_percent = round(percent_profit_or_loss, 2) if avg_buy_price_value < btc_value else round(percent_profit_or_loss * -1, 2)
     print("""
     \n================================================
-    \nBITCOIN PORTFOLIO TRACKER - DASHBOARD
+    \n*** BITCOIN PORTFOLIO TRACKER - DASHBOARD ***
     \n================================================""")
     print(f"\nYour BTC balance is: {btc_amount} BTC")
     print("\n================================================")
-    print(f"\nCurrrent BTC value in USD$ is: {btc_value} $")
+    print(f"\nCurrrent BTC value in USD$ is : {btc_value} $")
     print("\n================================================")
-    print(f"\nYour average BTC buy price in USD is {avg_buy_price} $")
+    print(f"\nYour average BTC buy price in USD$ is : {avg_buy_price} $")
     print("\n================================================")
-    print(f"\nYour BTC value based on average buy price is {avg_buy_price_value} $")
+    print(f"\nYour BTC value based on average buy price is : {avg_buy_price_value} $")
     print("\n================================================")
     print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
     print("\n================================================")
