@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import datetime
+import random
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -188,4 +189,36 @@ def update_sheet():
     SHEET.worksheet("trades").append_row(list)
 
 
-update_sheet()
+#update_sheet()
+
+
+def trades_dict():
+    keys_headings = SHEET.worksheet("trades").get_values("A1:E1")
+    values_data = SHEET.worksheet("trades").get_values("A2:E")
+    #print(keys_headings)
+    #print(values_data)
+    #dic = {}
+    
+    
+#trades_dict()
+
+class Trade:
+    def __init__(self, number, date, type, amount, price):
+        self.number = number
+        self.date = date
+        self.type = type
+        self.amount = amount
+        self.price = price
+    
+    def __str__(self):
+        return "\nTrade number; " + self.number + "\nTrade date: " + self.date + "\nTrade type: " + self.type + "\nBTC amount: " + self.amount + "\nBTC price: " + self.price
+
+keys_headings = SHEET.worksheet("trades").get_values("A1:E1")
+values_data = SHEET.worksheet("trades").get_values("A2:E")
+
+for i in range(len(values_data)):
+    tradei = Trade(values_data[i][0], values_data[i][1], values_data[i][2], values_data[i][3], values_data[i][4] )
+    print(tradei)
+    
+
+#print(Trade.str())
