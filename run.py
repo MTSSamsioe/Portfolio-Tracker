@@ -69,54 +69,6 @@ btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
 btc_amount = sum_sheet('trades', 'D2:D')
 
 
-def start():
-    """
-    Function checks if the portfolio has a name. If not you can add one that is then added to the google sheet
-    """
-    print("Welcome to your bitcoin portfoliotracker")
-    if SHEET.worksheet("name").get_values() == []:
-        print("Please pick a name for your portfolio")
-        portfolio_name_input = [input("Please enter your portfolio name:")]
-        SHEET.worksheet("name").append_row(portfolio_name_input)
-    else:
-        portfolio_name = SHEET.worksheet("name").get_values()
-        print(...)
-        print(f"your portfolio {str(portfolio_name[0][0])} Is now loaded!")
-
-
-
-def dashboard():
-    """
-    Function that shows dashboard with current value of portfolio, profit/loss and a menu
-    """
-    
-    btc_value = round(btc_amount * btc_price, 2)
-    # Average buy price
-    avg_buy_price = sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))
-    # The average buy price value of all btc
-    avg_buy_price_value = (sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))) * btc_amount
-    
-    percent_profit_or_loss = (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
-    # Gives a negative value if the average buy pricee is more than current btc_value
-    ternary_plus_minus_percent = round(percent_profit_or_loss, 2) if avg_buy_price_value < btc_value else round(percent_profit_or_loss * -1, 2)
-    
-    
-
-
-    print(f"Your BTC balance is: {btc_amount} BTC")
-    print(f"Currrent BTC value in USD$ is: {btc_value} $")
-    print(f"Your BTC value based on average buy price is {avg_buy_price_value} $")
-    print(f"Average pofit and loss is: {ternary_plus_minus_percent} %")
-    print("""================================
-    Available menue commands: 
-    'Trades' = Takes you to a list of your trades 
-    'Add trade' = Add a purchase or sale of Btc
-    """)
-    menu_choice = input(str("type menue command here: "))
-    
-
-#print(dashboard())
-
 def add_date():
     date = []
     print("Hi what date did you buy your bitcoin? (The format has to be DD-MM-2022) ")
@@ -196,6 +148,54 @@ def add_price():
 
 #print(add_price())
 
+# ========================== MAIN FUNCTIONS=============================
+
+def start():
+    """
+    Function checks if the portfolio has a name. If not you can add one that is then added to the google sheet
+    """
+    print("Welcome to your bitcoin portfoliotracker")
+    if SHEET.worksheet("name").get_values() == []:
+        print("Please pick a name for your portfolio")
+        portfolio_name_input = [input("Please enter your portfolio name:")]
+        SHEET.worksheet("name").append_row(portfolio_name_input)
+    else:
+        portfolio_name = SHEET.worksheet("name").get_values()
+        print(...)
+        print(f"your portfolio {str(portfolio_name[0][0])} Is now loaded!")
+
+
+
+def dashboard():
+    """
+    Function that shows dashboard with current value of portfolio, profit/loss and a menu
+    """
+    
+    btc_value = round(btc_amount * btc_price, 2)
+    # Average buy price
+    avg_buy_price = sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))
+    # The average buy price value of all btc
+    avg_buy_price_value = (sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E"))) * btc_amount
+    
+    percent_profit_or_loss = (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
+    # Gives a negative value if the average buy pricee is more than current btc_value
+    ternary_plus_minus_percent = round(percent_profit_or_loss, 2) if avg_buy_price_value < btc_value else round(percent_profit_or_loss * -1, 2)
+    
+    
+
+
+    print(f"Your BTC balance is: {btc_amount} BTC")
+    print(f"Currrent BTC value in USD$ is: {btc_value} $")
+    print(f"Your BTC value based on average buy price is {avg_buy_price_value} $")
+    print(f"Average pofit and loss is: {ternary_plus_minus_percent} %")
+    print("""================================
+    Available menue commands: 
+    'Trades' = Takes you to a list of your trades 
+    'Add trade' = Add a purchase or sale of Btc
+    """)
+    menu_choice = input(str("type menue command here: "))
+    
+
 def update_sheet():
     list = []
     length = len(SHEET.worksheet("trades").get_values("A2:A"))
@@ -235,4 +235,3 @@ def trades_list():
         print(tradei)
         
 
-nav()
