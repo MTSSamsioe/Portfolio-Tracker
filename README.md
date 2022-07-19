@@ -1,7 +1,7 @@
 # BITCOIN PORTFOLIO TRACKER
 Bitcoin portfolio tracker is a terminal portfolio that track and documnets all the users Bitcoin purchases and sales.
 Aswell as calculates average profits loss, portfolio value etc. Further in this text Bitcoin will be referred to as BTC.
-(Link to project)[Link]
+
 ---
 
 ## How to use portfolio
@@ -9,11 +9,13 @@ Aswell as calculates average profits loss, portfolio value etc. Further in this 
 The first time the user opens the program the user will be prompted to name their BTC protfolio.
 Afterwards the user will get navigation options to visit other features of the program.
 Live BTC price is updated every 20 minutes from a google sheet to calculate the current value of the portfolio.
-More usevul values can be found in the dashboard section. More trades can be added from the add trade section.
-All added trades are added uploaded to the same google sheet. A list of trades can be generated from the trades list section.
+More useful values can be found in the dashboard section. More trades can be added from the add trade section.
+All added trades are uploaded to the same google sheet. A list of trades can be generated from the trades list section.
+
+**It is recomended that a new user starts to add a couple of trades in the add section to populate the trade list and dashboard with data.**
 
 ### Link to google sheet
-- (Click here to open google sheet)()
+- (Click here to open google sheet that contains data)[https://docs.google.com/spreadsheets/d/15so2cZT1kHRJTjCibZ_gVl5OYUaxSQfogw_qDPIbsZQ/edit?usp=sharing]
 
 ## Features
 
@@ -22,7 +24,7 @@ All added trades are added uploaded to the same google sheet. A list of trades c
 - Give portfolio a name
     - Name your portfoli the first time the program opens.
     - After opening the program the nex time a text will say that the users portfolio is loaded
-
+![start image choose name](/assets/images/start.png)
 
 - Dashboard
     - In the dashboard the user can see multible values and calculatins:
@@ -31,19 +33,24 @@ All added trades are added uploaded to the same google sheet. A list of trades c
         - Average buy/sell price in USD$
         - Portfolio value based on average buy price
         - Average percentage profit/loss
-
+![Image of dashboard](/assets/images/dashboard.png)
 - Add trade
     - In the add trade section the user can add trades
         1. The user will be promted to enter purchase/sale date
             - Date must have format DD-MM-YY and will give a message to retry if the format is not valid
+            ![Image of add trade](/assets/images/add_date.png)
         2. The user will be promted to enter purchase or sold BTC amount.
             -  The input will be compared in a function to a list of allowed characters and alse checks that the input is not empty.
             - Alloed characters are (-, 0-9 and .) An error message will be shown to try again if input is empty or if an forbidden  character is used
             - The validation function will also check sell amount that it is not greater than the BTC balance
             - An error message will promt to try again if that happens
+            ![image of add amount ](/assets/images/add_amount.png)
         3. The user will be promted to enter the buy/sell price in USD$
             - The validation function will check that the input is not empty or if a forbidden character is used
             - Allowed charcters are (0-9 and .) An error message will be shown to try again if input is empty or if an forbidden  character is used
+        ![Image of add price](/assets/images/add_price.png)
+        ![Image of add price next](/assets/images/add_price_next.png)
+
 - Trades list
     - A List of trades will be generated via the trade class in trade.py
     - The data is collected from the google sheet
@@ -54,6 +61,7 @@ All added trades are added uploaded to the same google sheet. A list of trades c
             - BTC amount
             - BTC price
     - If there is no trades a message is show that there is no trades and first go to add section
+![Image of trade list](/assets/images/trade_list.png)
     
 - Navigation
     - All sections will run the nav function so the user easily can go between sections
@@ -63,6 +71,7 @@ All added trades are added uploaded to the same google sheet. A list of trades c
         - Add trade
         - Trade list
         - Exit program
+![Image of trade list](/assets/images/navigation.png)
 ### Future features
 - Calculate realized profit loss on sold BTC
 - Rename portfolio
