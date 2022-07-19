@@ -165,7 +165,7 @@ def add_amount():
                     break
                 else:
 
-                    print(f"Btc sold sold ({fl_amount}.BTC)") 
+                    print(f"Btc sold sold ({fl_amount}.BTC)")
                     print("can not be greater than")
                     print("portfolio balance ({btc_amount}.BTC")
                     print("please try again")
