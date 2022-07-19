@@ -55,7 +55,8 @@ def nav():
         print("'exit' --> Exit program")
 
         print("\n" + "=" * 50)
-        nav_input = input("\nWrite navigation command here : ")
+        print("\n ")
+        nav_input = input("Write navigation command here : \n")
         print("\n" + "=" * 50)
         if nav_input == "dash":
             dashboard()
@@ -93,7 +94,7 @@ def add_date():
     while True:
         try:
             print("\n" + "=" * 50)
-            date_input = input("Enter your date here: ")
+            date_input = input("Enter your date here: \n")
             print("\n" + "=" * 50)
             datetime.datetime.strptime(date_input, "%d-%m-%Y")
             print(f"\nInput approved the date you entered was {date_input} ")
@@ -129,7 +130,7 @@ def add_amount():
 
     while True:
         print("\n" + "=" * 50)
-        amount_input = input("Enter amount here : ")
+        amount_input = input("Enter amount here : \n")
         print("\n" + "=" * 50)
 
         check_char = validate_char(amount_input, allowed_char)
@@ -198,7 +199,8 @@ def add_price():
     while True:
 
         print("\n" + "=" * 50)
-        price_input = input("\nEnter price here : ")
+        print("\n ")
+        price_input = input("Enter price here : \n")
         print("\n" + "=" * 50)
 
         check_char = validate_char(price_input, allowed_char)
@@ -243,7 +245,7 @@ def start():
 
         print("Please pick a name for your portfolio")
         print("\n" + "=" * 50)
-        portfolio_name_input = [input("Please enter your portfolio name:")]
+        portfolio_name_input = input("Please enter your portfolio name:\n")
         print("\n" + "=" * 50)
         SHEET.worksheet("name").append_row(portfolio_name_input)
     else:
