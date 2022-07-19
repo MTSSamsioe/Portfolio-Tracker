@@ -18,6 +18,7 @@ SHEET = GSPREAD_CLIENT.open("portfolio_tracker")
 def sum_sheet(sheet, range):
     """
     Function that sums up cell range from a google sheet
+    and returns a float value
     """
     sum_tot = 0
     for i in SHEET.worksheet(sheet).get_values(range):
@@ -41,10 +42,11 @@ def validate_char(input_data, allowed_char):
 def nav():
     """
     Function that provides navigation between diffrent sections in the program
+    Dashboard, Add trade and Trades list
     """
     while True:
 
-        print("*" * 60)
+        print("*" * 20 + "SCROLL UP TO SEE VISITED SECTION" + "*" * 20)
         print("\nTo navigate an other section")
         print("type one of the following commands:")
         print("\n" + "*" * 60)
@@ -89,7 +91,7 @@ btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
 def add_date():
     """
     Function that takes input and verifies date format
-    before sending data to a Google sheet
+    before an other function sends it to a Google sheet
     """
     date = []
     print("\n" + "=" * 50)
@@ -116,7 +118,10 @@ def add_date():
 
 def add_amount():
     """
-    Function that verifies BTC amount data before sending it to Google sheet
+    Function that verifies BTC amount data
+    by comparing the input with list of allowed characters
+    and also checking that input is not empty
+    before an other function sends it to a Google sheet
     """
     btc_amount = sum_sheet("trades", "D2:D")
     amount_list = []
@@ -149,27 +154,21 @@ def add_amount():
                         amount_list.append(str("Sold"))
                     print("Input approved...")
                     print(
-                        f"""New BTC balance is : 
-                    {(fl_amount + btc_amount)}.BTC"""
+                        f"""New BTC balance is :
+                        {(fl_amount + btc_amount)}.BTC"""
                     )
                     amount_list.append(fl_amount)
                     break
                 else:
 
                     print(
-                        
-                            f"""Btc sold sold ({fl_amount}.BTC) can not be greater than 
-                            portfolio balance ({btc_amount}.BTC) 
+                        f"""Btc sold sold ({fl_amount}.BTC) can not be greater than
+                            portfolio balance ({btc_amount}.BTC)
                             please try again"""
                         )
-                    
             else:
-                print(
-                    
-                        f""" Input empty or Forbidden characters {check_char} 
-                        were used please try again"""
-                
-                )
+                print(f""" Input empty or Forbidden characters {check_char}
+                    were used please try again""")
         except ValueError as unknown_error:
             print(unknown_error)
     return amount_list
@@ -178,7 +177,9 @@ def add_amount():
 def add_price():
     """
     Function that verifies price data
-    before sending it to a Google Spread sheet
+    by comparing input with list of allowed characters
+    and also checking that input is not empty
+    before an other function sends it to a Google sheet
     """
     price_list = []
     allowed_char = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."]
@@ -296,12 +297,17 @@ def dashboard():
     print("\n" + "=" * 50)
     print(f"\nYour BTC value on average buy price is : {avg_buy_price_value}$")
     print("\n" + "=" * 50)
-    print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
+    print(f"\nAverage pofit is: {ternary_plus_minus_percent} %")
     print("\n" + "=" * 50)
     nav()
 
 
 def update_sheet():
+    """
+    Function updates google sheet with information
+    from functions add_date(), add_amount() and add_price
+    and also gives the trade a number in the google sheet
+    """
     trade_list = []
     length = len(SHEET.worksheet("trades").get_values("A2:A"))
     trade_list.append(length + 1)
@@ -349,4 +355,3 @@ def trades_list():
 
 
 nav()
-
