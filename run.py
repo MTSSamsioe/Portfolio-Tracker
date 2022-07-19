@@ -1,7 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import datetime
-from classes import trade
+from trade import Trade
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -57,6 +57,7 @@ def nav():
         print("\n ")
         nav_input = input("Write navigation command here : \n")
         print("\n" + "=" * 50)
+        
         if nav_input == "dash":
             dashboard()
             break
@@ -77,7 +78,6 @@ def nav():
 
 # global variables
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
-#btc_amount = sum_sheet("trades", "D2:D")
 
 
 def add_date():
@@ -86,7 +86,7 @@ def add_date():
     before sending data to a Google sheet
     """
     date = []
-    print("\n" "=" * 50)
+    print("\n" + "=" * 50)
     print("What date did you buy your bitcoin ? ")
     print("The format has to be DD-MM-2022) ")
 
@@ -101,7 +101,7 @@ def add_date():
             break
         except Exception as ex:
             print("\n" + "=" * 50)
-            print(ValueError(f"{ex}\nThe date format should be DD-MM-YY"))
+            print(f"{ex}\nThe date format should be DD-MM-YY")
             print("Please try again")
             print("\n" + "=" * 50)
     return date
@@ -129,50 +129,46 @@ def add_amount():
 
     while True:
         print("\n" + "=" * 50)
-        amount_input = input("Enter amount here : \n")
+        input_amount = input("Enter amount here : \n")
         print("\n" + "=" * 50)
 
-        check_char = validate_char(amount_input, allowed_char)
+        check_char = validate_char(input_amount, allowed_char)
         try:
-            if check_char == [] and len(amount_input) > 0:
+            if not check_char and len(input_amount) > 0:
+                fl_amount = float(input_amount)
+                if fl_amount < 0 and (btc_amount + fl_amount) > 0 \
+                        or fl_amount > 0 and (btc_amount + fl_amount) > 0:
 
-                if (
-                    float(amount_input) < 0 
-                    and (btc_amount + float(amount_input)) > 0
-                ) or (
-                    float(amount_input) > 0 
-                    and (btc_amount + float(amount_input)) > 0
-                ):
-
-                    amount_list.append(str("Bought")) if float(
-                        amount_input
-                    ) > 0 else amount_list.append(str("Sold"))
+                    if fl_amount > 0:
+                        amount_list.append(str("Bought"))
+                    else:
+                        amount_list.append(str("Sold"))
                     print("Input approved...")
                     print(
                         f"""New BTC balance is : 
-                    {(float(amount_input) + btc_amount)}.BTC"""
+                    {(fl_amount + btc_amount)}.BTC"""
                     )
-                    amount_list.append(float(amount_input))
+                    amount_list.append(fl_amount)
                     break
                 else:
 
                     print(
-                        ValueError(
-                            f"""Btc sold sold ({amount_input}.BTC) can not be greater than 
+                        
+                            f"""Btc sold sold ({fl_amount}.BTC) can not be greater than 
                             portfolio balance ({btc_amount}.BTC) 
                             please try again"""
                         )
-                    )
+                    
 
             else:
                 print(
-                    ValueError(
+                    
                         f""" Input empty or Forbidden characters {check_char} 
                         were used please try again"""
-                    )
+                
                 )
-        except ValueError as e:
-            print(ValueError(f"{e}"))
+        except ValueError as unknown_error:
+            print(f"{unknown_error}")
     return amount_list
 
 
@@ -204,7 +200,7 @@ def add_price():
 
         check_char = validate_char(price_input, allowed_char)
         try:
-            if check_char == [] and len(price_input) > 0:
+            if not check_char and len(price_input) > 0:
 
                 print("\n" + "=" * 50)
                 print("\nInput approved, trade added to trades list")
@@ -213,11 +209,11 @@ def add_price():
                 break
 
             else:
-                print(ValueError("\nInput empty or Forbidden characters "))
-                print(ValueError(f"{check_char}were used please try again"))
+                print("\nInput empty or Forbidden characters ")
+                print(f"{check_char}were used please try again")
 
-        except ValueError as e:
-            print(e)
+        except ValueError as unknown_error:
+            print(unknown_error)
 
     return price_list
 
@@ -246,7 +242,7 @@ def start():
         print("\n" + "=" * 50)
         portfolio_name_input = input("Please enter your portfolio name:\n")
         print("\n" + "=" * 50)
-        SHEET.worksheet("name").append_row(portfolio_name_input)
+        SHEET.worksheet("name").append_row([portfolio_name_input])
     else:
         portfolio_name = SHEET.worksheet("name").get_values()
         print(f"\nYour portfolio {str(portfolio_name[0][0])} Is now loaded !")
@@ -285,7 +281,7 @@ def dashboard():
         if avg_buy_price_value_never_0 < btc_value
         else round(percent_profit_or_loss, 2)
     )
-    
+
     print(
         """
     \n================================================
@@ -310,16 +306,16 @@ def dashboard():
 
 
 def update_sheet():
-    list = []
+    trade_list = []
     length = len(SHEET.worksheet("trades").get_values("A2:A"))
-    list.append(length + 1)
-    list.append(add_date()[0])
+    trade_list.append(length + 1)
+    trade_list.append(add_date()[0])
     two_values_list = add_amount()
-    type, amount = two_values_list
-    list.append(type)
-    list.append(amount)
-    list.append(add_price()[0])
-    SHEET.worksheet("trades").append_row(list)
+    trade_type, amount = two_values_list
+    trade_list.append(trade_type)
+    trade_list.append(amount)
+    trade_list.append(add_price()[0])
+    SHEET.worksheet("trades").append_row(trade_list)
     nav()
 
 
@@ -342,7 +338,7 @@ def trades_list():
 
     if len(values_data) > 0:
         for i in range(len(values_data)):
-            tradei = trade(
+            tradei = Trade(
                 values_data[i][0],
                 values_data[i][1],
                 values_data[i][2],

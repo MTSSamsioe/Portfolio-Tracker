@@ -1,5 +1,5 @@
-class trade:
-    def __init__(self, number, date, type, amount, price):
+class Trade:
+    def __init__(self, number, date, trade_type, amount, price):
         self.number = number
         self.date = date
         self.type = type
