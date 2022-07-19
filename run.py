@@ -98,10 +98,9 @@ def add_date():
             print(f"\nInput approved the date you entered was {date_input} ")
             date.append(str(date_input))
             break
-        except :
+        except Exception as e :
             print("\n" + "=" * 50)
-            print(ValueError(f"Your date has the wrong format"))
-            print(ValueError(f"The date format should be DD-MM-YY"))
+            print(ValueError(f"{e}\nThe date format should be DD-MM-YY"))
             print("Please try again")
             print("\n" + "=" * 50)
     return date
@@ -272,7 +271,7 @@ def dashboard():
         (btc_value - avg_buy_price_value_never_0) / btc_value * 100
     )
     ternary_plus_minus_percent = (
-         +round(percent_profit_or_loss, 2)
+         round(percent_profit_or_loss, 2)
         if avg_buy_price_value_never_0 < btc_value
         else round(percent_profit_or_loss * -1, 2)
     )
@@ -301,7 +300,7 @@ def dashboard():
 
 
 
-dashboard()
+#dashboard()
 
 
 def update_sheet():
