@@ -78,6 +78,8 @@ def nav():
             print(unknown_error)
 
 # global variables
+
+
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
 
 
@@ -160,7 +162,6 @@ def add_amount():
                             please try again"""
                         )
                     
-
             else:
                 print(
                     
@@ -237,17 +238,21 @@ def start():
     \nWelcome to your Bitcoin portfolio tracker
     \n================================================"""
     )
-    if SHEET.worksheet("name").get_values() == []:
+    try:
+        if not SHEET.worksheet("name").get_values():
 
-        print("Please pick a name for your portfolio")
-        print("\n" + "=" * 50)
-        portfolio_name_input = input("Please enter your portfolio name:\n")
-        print("\n" + "=" * 50)
-        SHEET.worksheet("name").append_row([portfolio_name_input])
-    else:
-        portfolio_name = SHEET.worksheet("name").get_values()
-        print(f"\nYour portfolio {str(portfolio_name[0][0])} Is now loaded !")
-        print("\n" + "=" * 50)
+            print("Please pick a name for your portfolio")
+            print("\n" + "=" * 50)
+            portfolio_name_input = input("Please enter your portfolio name:\n")
+            print("\n" + "=" * 50)
+            SHEET.worksheet("name").append_row([portfolio_name_input])
+        else:
+            portfolio_name = SHEET.worksheet("name").get_values()
+            print(f"\nYour portfolio {str(portfolio_name[0][0])}")
+            print("Is now loaded !")
+            print("\n" + "=" * 50)
+    except ValueError as unknown_error:
+        print(unknown_error)
 
 
 start()
