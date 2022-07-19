@@ -53,6 +53,7 @@ All added trades are added uploaded to the same google sheet. A list of trades c
             - Type of trade bought/sold
             - BTC amount
             - BTC price
+    - If there is no trades a message is show that there is no trades and first go to add section
     
 - Navigation
     - All sections will run the nav function so the user easily can go between sections
@@ -63,24 +64,67 @@ All added trades are added uploaded to the same google sheet. A list of trades c
         - Trade list
         - Exit program
 ### Future features
-
+- Calculate realized profit loss on sold BTC
+- Rename portfolio
+- Have multiple portfolios
+- Support multible currencies
+- Password to enter portfolio
 
 ## Data Model
 ---
+- I used a class "Trade" in trade.py to generate the list of trades.
+- I made two helper funtions: 
+    1. Calculate the sum of a cerrtain cell range in the google sheet. 
+    2. Valdidate input characters
+- Every section runs its own function and all functions end in running the navigation function
 
 ## Testing
 ---
+- I have tested this program with the steps below:
+    - Passed the code through the (PEP8)[http://pep8online.com/] without any erros
+    - Corrected any errors found in the errors list in gitpod
+    - manually tested the program and giving invalid errors to see that the correct error message is displayed
+
 ### Bugs
 
 #### Solved bugs
+- I could not figure out how to compare two lists or strings:
+    - FIX: I found a solution here (Adam smith)[https://www.adamsmith.haus/python/answers/how-to-get-the-difference-between-two-list-in-python]
+- The program needed to have two trades entered in the list to be abel to make calculations in dashboard
+    - FIX: I added some if statements that prevents values to be 0 since you can´t devide something with 0
+- I could not get message to show a message that the trades list is empty if no trades has beeen added
+    - FIX: The if statemen was previously in a for loop that would iterate the same amount of times as entered trades.
+    But since it was empty the loop never started and could not show the else statement. I instead but the for loop in the if statement.
 
 #### Remaining bugs
+- It is not really a bug but I uploaded a credentials file to git hub because I forgot to add it to my gitignore file.
+I tried librarys bfg and tried git obliterate without it working. CI support advised me to leave it in the histroy and previous gits.
+I have deleted and swiched the credentials file since then so no active key saved on github.
 
 ### Validator testing
-
+- PEP8
+    - No errors found on (PEP8)[http://pep8online.com/]
 ## Deployment
 ---
-
+- Steps for deployment:
+    - Add \n in the end of to all inputs
+    - Write "command pip3 freeze > requirements.txt" to create list in requirements.txt of installed libraries the program needs to run
+    - Create account on (Heroku)[https://www.heroku.com/home]
+    - Create new app on Heroku and name it
+    - Go to settings and add two config vars file:
+        - CREDS.json contains all content from my credentials file to be able to access the google sheet
+        - PORT 8000 as instructed by CI
+    - Add buildpacks in this order:
+        - Python
+        - Nodejs
+    - Go to deploy section:
+        - Connect to Github
+        - Search for your program on Github
+        - Press deploy
 ## Credits
 ---
-
+- How to get live BTC price to update automatically in google sheets (spreadsheet Class)[https://www.spreadsheetclass.com/pulling-cryptocurrency-prices-into-google-sheets-2-methods/]
+- How to unpack a list i found (here)[https://note.nkmk.me/en/python-tuple-list-unpack/]
+- Code how to validate date and time format i found (here)[https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python] and was made possible with imported library DateTime
+- How to compare two arrays I found (here)[https://www.adamsmith.haus/python/answers/how-to-get-the-difference-between-two-list-in-python] the code borrowed from here is marked with comment in run.py
+- How to create loop that creates class instances i found on this youtube video made by (Eybar Vasqueez Nevarez)[https://www.youtube.com/watch?v=9ciQeqyuiek&t=187s] the method he used is the same as mine and it is marked with comment in trade.py
