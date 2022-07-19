@@ -32,6 +32,10 @@ def validate_char(input_data, allowed_char):
     Function that compares input_data with list of allowed
     characters and returns a list of forbidden characters
     """
+    """Rest code below in this function i took from Adam smith
+    https://www.adamsmith.haus/python/answers/
+    how-to-get-the-difference-between-two-list-in-python
+    """
     forbidden_char = []
     for char in input_data:
         if char not in allowed_char:
@@ -161,14 +165,14 @@ def add_amount():
                     break
                 else:
 
-                    print(
-                        f"""Btc sold sold ({fl_amount}.BTC) can not be greater than
-                            portfolio balance ({btc_amount}.BTC)
-                            please try again"""
-                        )
+                    print(f"Btc sold sold ({fl_amount}.BTC)") 
+                    print("can not be greater than")
+                    print("portfolio balance ({btc_amount}.BTC")
+                    print("please try again")
+
             else:
-                print(f""" Input empty or Forbidden characters {check_char}
-                    were used please try again""")
+                print("Input empty or Forbidden characters")
+                print(f"{check_char} were used please try again")
         except ValueError as unknown_error:
             print(unknown_error)
     return amount_list
