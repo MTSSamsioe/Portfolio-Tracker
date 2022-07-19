@@ -49,7 +49,6 @@ def nav():
         print("type one of the following commands:")
         print("\n" + "*" * 60)
         print("'dash' --> Go to dashboard")
-        print("'dash' --> Go to dashboard")
         print("'add' --> Go to add trade section")
         print("'trade' --> Go to trade list section")
         print("'exit' --> Exit program")
@@ -78,7 +77,7 @@ def nav():
 
 # global variables
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
-btc_amount = sum_sheet("trades", "D2:D")
+#btc_amount = sum_sheet("trades", "D2:D")
 
 
 def add_date():
@@ -87,7 +86,7 @@ def add_date():
     before sending data to a Google sheet
     """
     date = []
-    print("\n= *")
+    print("\n" "=" * 50)
     print("What date did you buy your bitcoin ? ")
     print("The format has to be DD-MM-2022) ")
 
@@ -250,12 +249,11 @@ def start():
         SHEET.worksheet("name").append_row(portfolio_name_input)
     else:
         portfolio_name = SHEET.worksheet("name").get_values()
-
         print(f"\nYour portfolio {str(portfolio_name[0][0])} Is now loaded !")
         print("\n" + "=" * 50)
 
 
-# start()
+start()
 
 
 def dashboard():
@@ -283,14 +281,11 @@ def dashboard():
         else (btc_value - avg_buy_price_value_never_0) / btc_value * 100
     )
     ternary_plus_minus_percent = (
-        round(percent_profit_or_loss, 2)
+        round(percent_profit_or_loss * -1, 2)
         if avg_buy_price_value_never_0 < btc_value
-        else round(percent_profit_or_loss * -1, 2)
+        else round(percent_profit_or_loss, 2)
     )
-    print(avg_buy_price_value_never_0)
-    print(btc_value)
-    print(percent_profit_or_loss)
-    print(ternary_plus_minus_percent)
+    
     print(
         """
     \n================================================
@@ -364,7 +359,7 @@ def trades_list():
     nav()
 
 
-# nav()
+nav()
 
 # print(len(SHEET.worksheet("trades").get_values("A2:E")))
 # trades_list()
