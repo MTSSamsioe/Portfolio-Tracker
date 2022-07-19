@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import datetime
+from classes import trade
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -324,29 +325,6 @@ def trades_list():
     """
     Function that creates class instances of trades that has been made.
     """
-
-    class Trade:
-        def __init__(self, number, date, type, amount, price):
-            self.number = number
-            self.date = date
-            self.type = type
-            self.amount = amount
-            self.price = price
-
-        def __str__(self):
-            return (
-                "\nTrade number; "
-                + self.number
-                + "\nTrade date: "
-                + self.date
-                + "\nTrade type: "
-                + self.type
-                + "\nBTC amount: "
-                + self.amount
-                + "\nBTC price: "
-                + self.price
-            )
-
     values_data = SHEET.worksheet("trades").get_values("A2:E")
 
     print(
@@ -358,7 +336,7 @@ def trades_list():
     print("\nBelow is a list of all your trades")
     for i in range(len(values_data)):
         if len(values_data) > 0:
-            tradei = Trade(
+            tradei = trade(
                 values_data[i][0],
                 values_data[i][1],
                 values_data[i][2],
