@@ -276,9 +276,9 @@ def dashboard():
         else (btc_value - avg_buy_price_value_never_0) / btc_value * 100
     )
     ternary_plus_minus_percent = (
-        round(percent_profit_or_loss * -1, 2)
+        round(percent_profit_or_loss, 2)
         if avg_buy_price_value_never_0 < btc_value
-        else round(percent_profit_or_loss, 2)
+        else round(percent_profit_or_loss * -1, 2)
     )
 
     print(
