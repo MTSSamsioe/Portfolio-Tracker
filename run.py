@@ -57,24 +57,25 @@ def nav():
         print("\n ")
         nav_input = input("Write navigation command here : \n")
         print("\n" + "=" * 50)
-        
-        if nav_input == "dash":
-            dashboard()
-            break
-        elif nav_input == "add":
-            update_sheet()
-            break
-        elif nav_input == "trade":
-            trades_list()
-            break
-        elif nav_input == "exit":
-            return False
+        try:
+            if nav_input == "dash":
+                dashboard()
+                break
+            elif nav_input == "add":
+                update_sheet()
+                break
+            elif nav_input == "trade":
+                trades_list()
+                break
+            elif nav_input == "exit":
+                return False
 
-        else:
-            print("\n" + "=" * 50)
-            print("\nInvalid command please try again")
-            print("\n" + "=" * 50)
-
+            else:
+                print("\n" + "=" * 50)
+                print("\nInvalid command please try again")
+                print("\n" + "=" * 50)
+        except ValueError as unknown_error:
+            print(unknown_error)
 
 # global variables
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
