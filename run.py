@@ -334,22 +334,27 @@ def trades_list():
     \n================================================"""
     )
     print("\nBelow is a list of all your trades")
-    for i in range(len(values_data)):
-        if len(values_data) > 0:
+    
+    if len(values_data) > 0:
+        for i in range(len(values_data)):
             tradei = trade(
-                values_data[i][0],
-                values_data[i][1],
-                values_data[i][2],
-                values_data[i][3],
-                values_data[i][4],
+            values_data[i][0],
+            values_data[i][1],
+            values_data[i][2],
+            values_data[i][3],
+            values_data[i][4],
             )
             print("\n" + "=" * 50)
             print(tradei)
-        else:
+    else:
             print("\n" + "=" * 50)
-            print("There are no trades in the list please add trades first")
-            print("\n" + "=" * 50)
+            print("\nThere are no trades in the list please add trades first")
+            print("\n" + "=" * 50)        
+    
     nav()
 
 
 #nav()
+
+#print(len(SHEET.worksheet("trades").get_values("A2:E")))
+#trades_list()
