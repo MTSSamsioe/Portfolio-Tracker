@@ -77,10 +77,13 @@ def nav():
         except ValueError as unknown_error:
             print(unknown_error)
 
-# global variables
 
+# global variable
 
 btc_price = float(SHEET.worksheet("price").get_values("A1")[0][0])
+
+
+# Functions used for update_sheet() functions
 
 
 def add_date():
@@ -102,15 +105,13 @@ def add_date():
             print(f"\nInput approved the date you entered was {date_input} ")
             date.append(str(date_input))
             break
+
         except Exception as ex:
             print("\n" + "=" * 50)
             print(f"{ex}\nThe date format should be DD-MM-YY")
             print("Please try again")
             print("\n" + "=" * 50)
     return date
-
-
-# print(add_date())
 
 
 def add_amount():
@@ -170,11 +171,8 @@ def add_amount():
                 
                 )
         except ValueError as unknown_error:
-            print(f"{unknown_error}")
+            print(unknown_error)
     return amount_list
-
-
-# print(add_amount())
 
 
 def add_price():
@@ -218,11 +216,6 @@ def add_price():
             print(unknown_error)
 
     return price_list
-
-
-# add_price()
-
-# print(add_price())
 
 # ========================== MAIN FUNCTIONS=============================
 
@@ -308,9 +301,6 @@ def dashboard():
     nav()
 
 
-# dashboard()
-
-
 def update_sheet():
     trade_list = []
     length = len(SHEET.worksheet("trades").get_values("A2:A"))
@@ -323,9 +313,6 @@ def update_sheet():
     trade_list.append(add_price()[0])
     SHEET.worksheet("trades").append_row(trade_list)
     nav()
-
-
-# update_sheet()
 
 
 def trades_list():
@@ -363,5 +350,3 @@ def trades_list():
 
 nav()
 
-# print(len(SHEET.worksheet("trades").get_values("A2:E")))
-# trades_list()
