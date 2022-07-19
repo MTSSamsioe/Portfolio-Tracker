@@ -2,7 +2,7 @@ class Trade:
     def __init__(self, number, date, trade_type, amount, price):
         self.number = number
         self.date = date
-        self.type = type
+        self.trade_type = trade_type
         self.amount = amount
         self.price = price
 
@@ -13,7 +13,7 @@ class Trade:
             + "\nTrade date: "
             + self.date
             + "\nTrade type: "
-            + self.type
+            + self.trade_type
             + "\nBTC amount: "
             + self.amount                
             + "\nBTC price: "
