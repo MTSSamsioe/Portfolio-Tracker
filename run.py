@@ -99,15 +99,15 @@ def add_date():
             print(f"\nInput approved the date you entered was {date_input} ")
             date.append(str(date_input))
             break
-        except Exception as e :
+        except Exception as ex:
             print("\n" + "=" * 50)
-            print(ValueError(f"{e}\nThe date format should be DD-MM-YY"))
+            print(ValueError(f"{ex}\nThe date format should be DD-MM-YY"))
             print("Please try again")
             print("\n" + "=" * 50)
     return date
 
 
-#print(add_date())
+# print(add_date())
 
 
 def add_amount():
@@ -136,15 +136,20 @@ def add_amount():
         try:
             if check_char == [] and len(amount_input) > 0:
 
-                if (float(amount_input) < 0 and (btc_amount + float(amount_input)) > 0) or (
-                    float(amount_input) > 0 and (btc_amount + float(amount_input)) > 0
+                if (
+                    float(amount_input) < 0 
+                    and (btc_amount + float(amount_input)) > 0
+                ) or (
+                    float(amount_input) > 0 
+                    and (btc_amount + float(amount_input)) > 0
                 ):
 
                     amount_list.append(str("Bought")) if float(
                         amount_input
                     ) > 0 else amount_list.append(str("Sold"))
                     print("Input approved...")
-                    print(f"""New BTC balance is : 
+                    print(
+                        f"""New BTC balance is : 
                     {(float(amount_input) + btc_amount)}.BTC"""
                     )
                     amount_list.append(float(amount_input))
@@ -166,8 +171,8 @@ def add_amount():
                         were used please try again"""
                     )
                 )
-            except ValueError as e:
-                print(f"{e}")
+        except ValueError as e:
+            print(ValueError(f"{e}"))
     return amount_list
 
 
@@ -207,15 +212,16 @@ def add_price():
                 break
 
             else:
-                print(ValueError(f"\nInput empty or Forbidden characters "))
+                print(ValueError("\nInput empty or Forbidden characters "))
                 print(ValueError(f"{check_char}were used please try again"))
-                
+
         except ValueError as e:
             print(e)
 
     return price_list
 
-#add_price()
+
+# add_price()
 
 # print(add_price())
 
@@ -247,7 +253,7 @@ def start():
         print("\n" + "=" * 50)
 
 
-#start()
+# start()
 
 
 def dashboard():
@@ -255,26 +261,27 @@ def dashboard():
     Function that shows dashboard with
     current value of portfolio, profit/loss etc
     """
-    
+
     btc_amount = sum_sheet("trades", "D2:D")
     btc_value = round(btc_amount * btc_price, 2)
-    avg_len_never_0 = 1 if len(SHEET.worksheet("trades").get_values("E2:E")) == 0 \
-            else len(SHEET.worksheet("trades").get_values("E2:E"))
-    avg_buy_price = round(
-        sum_sheet("trades", "E2:E") / avg_len_never_0 ,
-        2
+    avg_len_never_0 = (
+        1
+        if len(SHEET.worksheet("trades").get_values("E2:E")) == 0
+        else len(SHEET.worksheet("trades").get_values("E2:E"))
     )
+    avg_buy_price = round(sum_sheet("trades", "E2:E") / avg_len_never_0, 2)
     avg_buy_price_value = round(avg_buy_price * btc_amount, 2)
-    
-    avg_buy_price_value_never_0 = 1 if avg_buy_price_value <= 0 else avg_buy_price_value
 
+    avg_buy_price_value_never_0 = 1 if avg_buy_price_value <= 0 \
+        else avg_buy_price_value
 
     percent_profit_or_loss = (
-        0 if btc_amount <= 0 else
-        (btc_value - avg_buy_price_value_never_0) / btc_value * 100
+        0
+        if btc_amount <= 0
+        else (btc_value - avg_buy_price_value_never_0) / btc_value * 100
     )
     ternary_plus_minus_percent = (
-         round(percent_profit_or_loss, 2)
+        round(percent_profit_or_loss, 2)
         if avg_buy_price_value_never_0 < btc_value
         else round(percent_profit_or_loss * -1, 2)
     )
@@ -291,19 +298,18 @@ def dashboard():
     )
     print(f"\nYour BTC balance is: {btc_amount} BTC")
     print("\n" + "=" * 50)
-    print(f"\nCurrrent BTC value in USD$ is : {btc_value} $")
+    print(f"\nCurrrent BTC value in USD$ is : {btc_value}$")
     print("\n" + "=" * 50)
-    print(f"\nYour average BTC buy price in USD$ is : {avg_buy_price} $")
+    print(f"\nYour average BTC buy price in USD$ is : {avg_buy_price}$")
     print("\n" + "=" * 50)
-    print(f"\nYour BTC value on average buy price is : {avg_buy_price_value} $")
+    print(f"\nYour BTC value on average buy price is : {avg_buy_price_value}$")
     print("\n" + "=" * 50)
     print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
     print("\n" + "=" * 50)
     nav()
 
 
-
-#dashboard()
+# dashboard()
 
 
 def update_sheet():
@@ -336,27 +342,27 @@ def trades_list():
     \n================================================"""
     )
     print("\nBelow is a list of all your trades")
-    
+
     if len(values_data) > 0:
         for i in range(len(values_data)):
             tradei = trade(
-            values_data[i][0],
-            values_data[i][1],
-            values_data[i][2],
-            values_data[i][3],
-            values_data[i][4],
+                values_data[i][0],
+                values_data[i][1],
+                values_data[i][2],
+                values_data[i][3],
+                values_data[i][4],
             )
             print("\n" + "=" * 50)
             print(tradei)
     else:
-            print("\n" + "=" * 50)
-            print("\nThere are no trades in the list please add trades first")
-            print("\n" + "=" * 50)        
-    
+        print("\n" + "=" * 50)
+        print("\nThere are no trades in the list please add trades first")
+        print("\n" + "=" * 50)
+
     nav()
 
 
-#nav()
+# nav()
 
-#print(len(SHEET.worksheet("trades").get_values("A2:E")))
-#trades_list()
+# print(len(SHEET.worksheet("trades").get_values("A2:E")))
+# trades_list()
