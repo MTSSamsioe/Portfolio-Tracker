@@ -196,24 +196,25 @@ def add_price():
         print("\n" + "=" * 50)
 
         check_char = validate_char(price_input, allowed_char)
+        try:
+            if check_char == [] and len(price_input) > 0:
 
-        if check_char == [] and len(price_input) > 0:
+                print("\n" + "=" * 50)
+                print("\nInput approved, trade added to trades list")
+                price_list.append(float(price_input))
 
-            print("\n" + "=" * 50)
-            print("\nInput approved trade added to trades list")
-            price_list.append(float(price_input))
+                break
 
-            break
-
-        else:
-            print(ValueError(
-                    f"""\nInput empty or Forbidden characters {check_char} 
-                    were used please try again"""
-                )
-            )
+            else:
+                print(ValueError(f"\nInput empty or Forbidden characters "))
+                print(ValueError(f"{check_char}were used please try again"))
+                
+        except ValueError as e:
+            print(e)
 
     return price_list
 
+#add_price()
 
 # print(add_price())
 
