@@ -98,22 +98,23 @@ def add_date():
             print(f"\nInput approved the date you entered was {date_input} ")
             date.append(str(date_input))
             break
-        except ValueError() as e:
+        except :
             print("\n" + "=" * 50)
-            print(f"{e} Your date has the wrong format")
-            print(f"{e} The date format should be DD-MM-YY")
+            print(ValueError(f"Your date has the wrong format"))
+            print(ValueError(f"The date format should be DD-MM-YY"))
             print("Please try again")
             print("\n" + "=" * 50)
     return date
 
 
-# print(add_date())
+#print(add_date())
 
 
 def add_amount():
     """
     Function that verifies BTC amount data before sending it to Google sheet
     """
+    btc_amount = sum_sheet("trades", "D2:D")
     amount_list = []
     allowed_char = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "-"]
     print("\n" + "=" * 50)
@@ -244,7 +245,7 @@ def start():
         print("\n" + "=" * 50)
 
 
-start()
+#start()
 
 
 def dashboard():
@@ -252,29 +253,33 @@ def dashboard():
     Function that shows dashboard with
     current value of portfolio, profit/loss etc
     """
-
+    
+    btc_amount = sum_sheet("trades", "D2:D")
     btc_value = round(btc_amount * btc_price, 2)
+    avg_len_never_0 = 1 if len(SHEET.worksheet("trades").get_values("E2:E")) == 0 \
+            else len(SHEET.worksheet("trades").get_values("E2:E"))
     avg_buy_price = round(
-        sum_sheet("trades", "E2:E") / len(SHEET.worksheet("trades").get_values("E2:E")),
-        2,
+        sum_sheet("trades", "E2:E") / avg_len_never_0 ,
+        2
     )
-    avg_buy_price_value = round(
-        (
-            sum_sheet("trades", "E2:E")
-            / len(SHEET.worksheet("trades").get_values("E2:E"))
-        )
-        * btc_amount,
-        2,
-    )
+    avg_buy_price_value = round(avg_buy_price * btc_amount, 2)
+    
+    avg_buy_price_value_never_0 = 1 if avg_buy_price_value <= 0 else avg_buy_price_value
+
+
     percent_profit_or_loss = (
-        (avg_buy_price_value - btc_value) / avg_buy_price_value * 100
+        0 if btc_amount <= 0 else
+        (btc_value - avg_buy_price_value_never_0) / btc_value * 100
     )
     ternary_plus_minus_percent = (
-        round(percent_profit_or_loss, 2)
-        if avg_buy_price_value < btc_value
+         +round(percent_profit_or_loss, 2)
+        if avg_buy_price_value_never_0 < btc_value
         else round(percent_profit_or_loss * -1, 2)
     )
-
+    print(avg_buy_price_value_never_0)
+    print(btc_value)
+    print(percent_profit_or_loss)
+    print(ternary_plus_minus_percent)
     print(
         """
     \n================================================
@@ -288,14 +293,15 @@ def dashboard():
     print("\n" + "=" * 50)
     print(f"\nYour average BTC buy price in USD$ is : {avg_buy_price} $")
     print("\n" + "=" * 50)
-    print(
-        f"""\nYour BTC value based on average buy price is : 
-    {avg_buy_price_value} $"""
-    )
+    print(f"\nYour BTC value on average buy price is : {avg_buy_price_value} $")
     print("\n" + "=" * 50)
     print(f"\nAverage pofit and loss is: {ternary_plus_minus_percent} %")
     print("\n" + "=" * 50)
     nav()
+
+
+
+dashboard()
 
 
 def update_sheet():
@@ -369,4 +375,4 @@ def trades_list():
     nav()
 
 
-nav()
+#nav()
