@@ -133,40 +133,41 @@ def add_amount():
         print("\n" + "=" * 50)
 
         check_char = validate_char(amount_input, allowed_char)
+        try:
+            if check_char == [] and len(amount_input) > 0:
 
-        if check_char == [] and len(amount_input) > 0:
+                if (float(amount_input) < 0 and (btc_amount + float(amount_input)) > 0) or (
+                    float(amount_input) > 0 and (btc_amount + float(amount_input)) > 0
+                ):
 
-            if (float(amount_input) < 0 and (btc_amount + float(amount_input)) > 0) or (
-                float(amount_input) > 0 and (btc_amount + float(amount_input)) > 0
-            ):
+                    amount_list.append(str("Bought")) if float(
+                        amount_input
+                    ) > 0 else amount_list.append(str("Sold"))
+                    print("Input approved...")
+                    print(f"""New BTC balance is : 
+                    {(float(amount_input) + btc_amount)}.BTC"""
+                    )
+                    amount_list.append(float(amount_input))
+                    break
+                else:
 
-                amount_list.append(str("Bought")) if float(
-                    amount_input
-                ) > 0 else amount_list.append(str("Sold"))
-                print("Input approved...")
-                print(f"""New BTC balance is : 
-                {(float(amount_input) + btc_amount)}.BTC"""
-                )
-                amount_list.append(float(amount_input))
-                break
+                    print(
+                        ValueError(
+                            f"""Btc sold sold ({amount_input}.BTC) can not be greater than 
+                            portfolio balance ({btc_amount}.BTC) 
+                            please try again"""
+                        )
+                    )
+
             else:
-
                 print(
                     ValueError(
-                        f"""Btc sold sold ({amount_input}.BTC) can not be greater than 
-                        portfolio balance ({btc_amount}.BTC) 
-                        please try again"""
+                        f""" Input empty or Forbidden characters {check_char} 
+                        were used please try again"""
                     )
                 )
-
-        else:
-            print(
-                ValueError(
-                    f""" Input empty or Forbidden characters {check_char} 
-                    were used please try again"""
-                )
-            )
-
+            except ValueError as e:
+                print(f"{e}")
     return amount_list
 
 
