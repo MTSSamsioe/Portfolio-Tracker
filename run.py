@@ -208,7 +208,6 @@ def add_price():
             if not check_char and len(price_input) > 0:
 
                 print("\n" + "=" * 50)
-                print("\nInput approved, trade added to trades list")
                 price_list.append(float(price_input))
 
                 break

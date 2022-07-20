@@ -57,7 +57,7 @@ All added trades are uploaded to the same google sheet. A list of trades can be 
             - Allowed charcters are (0-9 and .) An error message will be shown to try again if input is empty or if a forbidden  character is used
 
         ![Image of add price](/assets/images/add_price.png)
-        ![Image of add price next](/assets/images/add_price_next.png)
+        
 
 
 - Trades list
@@ -104,7 +104,7 @@ All added trades are uploaded to the same google sheet. A list of trades can be 
 ## Testing
 ---
 - I have tested this program with the steps below:
-    - Passed the code through the (PEP8)[http://pep8online.com/] without any erros
+    - Passed the code through the [PEP8](http://pep8online.com/) without any erros
     - Corrected any errors found in the errors list in gitpod
     - Manually tested the program and giving invalid commands to see that the correct error messages are displayed
 
@@ -112,7 +112,7 @@ All added trades are uploaded to the same google sheet. A list of trades can be 
 
 #### Solved bugs
 - I could not figure out how to compare two lists or strings:
-    - FIX: I found a solution here (Adam smith)[https://www.adamsmith.haus/python/answers/how-to-get-the-difference-between-two-list-in-python]
+    - FIX: I found a solution here [Adam smith](https://www.adamsmith.haus/python/answers/how-to-get-the-difference-between-two-list-in-python)
 - The program needed to have two trades entered in the list to be abel to make calculations in dashboard
     - FIX: I added some if statements that prevents values to be 0 since you can´t devide something with 0
 - I could not get message to show text that the trades list is empty if no trades has beeen added
@@ -126,7 +126,7 @@ I have deleted and swiched the credentials file since then so no active key save
 
 ### Validator testing
 - PEP8
-    - No errors found on (PEP8)[http://pep8online.com/]
+    - No errors found on [PEP8](http://pep8online.com/)
 
 
 ## Deployment
@@ -134,7 +134,7 @@ I have deleted and swiched the credentials file since then so no active key save
 - Steps for deployment:
     - Add \n in the end of to all inputs to avoid a bug
     - Write "command pip3 freeze > requirements.txt" to create list in requirements.txt of installed libraries the program needs to run
-    - Create account on (Heroku)[https://www.heroku.com/home]
+    - Create account on [Heroku](https://www.heroku.com/home)
     - Create new app on Heroku and name it
     - Go to settings and add two config vars files:
         - CREDS.json contains all content from my credentials file to be able to access the google sheet
@@ -146,18 +146,18 @@ I have deleted and swiched the credentials file since then so no active key save
         - Connect to Github
         - Search for your program on Github
         - Press deploy
-        - Link to deployed project (Here)[https://bitcoin-portfolio-tracker.herokuapp.com/]
+        - Link to deployed project [Here](https://bitcoin-portfolio-tracker.herokuapp.com/)
 
 ## Credits
 ---
-- How to get live BTC price to update automatically in google sheets (spreadsheet Class)[https://www.spreadsheetclass.com/pulling-cryptocurrency-prices-into-google-sheets-2-methods/]
-- How to unpack a list i found (here)[https://note.nkmk.me/en/python-tuple-list-unpack/]
-- Code how to validate date and time format i found (here)[https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python] and was made possible with imported library DateTime
-- How to compare two arrays I found (here)[https://www.adamsmith.haus/python/answers/how-to-get-the-difference-between-two-list-in-python] the code borrowed from here is marked with comment in run.py
-- How to create loop that creates class instances i found on this youtube video made by (Eybar Vasqueez Nevarez)[https://www.youtube.com/watch?v=9ciQeqyuiek&t=187s] the method he used is the same as mine and it is marked with comment in trade.py
+- How to get live BTC price to update automatically in google sheets [spreadsheet Class](https://www.spreadsheetclass.com/pulling-cryptocurrency-prices-into-google-sheets-2-methods/)
+- How to unpack a list i found [here](https://note.nkmk.me/en/python-tuple-list-unpack/)
+- Code how to validate date and time format i found [here](https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python) and was made possible with imported library DateTime
+- How to compare two arrays I found [here](https://www.adamsmith.haus/python/answers/how-to-get-the-difference-between-two-list-in-python) the code borrowed from here is marked with comment in run.py
+- How to create loop that creates class instances i found on this youtube video made by [Eybar Vasqueez Nevarez](https://www.youtube.com/watch?v=9ciQeqyuiek&t=187s) the method he used is the same as mine and it is marked with comment in trade.py
 
 - Librarys that I instlled are:
-    - DateTime (DateTime)[https://pypi.org/project/DateTime/]
-    - gspread (gspread)[https://pypi.org/project/gspread/]
-    - googlee auth (Google auth)[https://pypi.org/project/google-auth/]
-    - Bfg repo cleaner (BFG)[https://rtyley.github.io/bfg-repo-cleaner/]
+    - DateTime [DateTime](https://pypi.org/project/DateTime/)
+    - gspread [gspread](https://pypi.org/project/gspread/)
+    - googlee auth [Google auth](https://pypi.org/project/google-auth/)
+    - Bfg repo cleaner [BFG](https://rtyley.github.io/bfg-repo-cleaner/)
