@@ -98,7 +98,7 @@ All added trades are uploaded to the same google sheet. A list of trades can be 
 - I made two helper funtions that are used multiple times in the code: 
     1. Calculate the sum of a certain cell range in the google sheet
     2. Valdidate input characters
-- Every section runs its own function and all functions end in running the navigation function
+- Every section runs its own function and all functions will run the the navigation function to be abel to switch section
 
 
 ## Testing
